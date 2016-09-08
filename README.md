@@ -1,5 +1,3 @@
-# Utilities for Raspberry
-
 # Installation
 Use following link : http://blog.alexellis.io/getting-started-with-docker-on-raspberry-pi/
 
