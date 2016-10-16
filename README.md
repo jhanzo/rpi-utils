@@ -1,6 +1,18 @@
-# Installation
-Use following link : http://blog.alexellis.io/getting-started-with-docker-on-raspberry-pi/
+#Installation
 
-## 0 - Latest Raspbian
+## 0 - Raspbian on SDCard
 Download latest release of Raspbian on : https://www.raspberrypi.org/downloads/raspbian/
+Minimal version of raspbian should be better for installing only required packages.
+
+Then for installing image on sd card : 
+- On Windows, use [Win32DiskImager](http://lifehacker.com/how-to-clone-your-raspberry-pi-sd-card-for-super-easy-r-1261113524)
+- On Unix, run `sudo dd if=raspbian_latest of=/dev/sde bs=1m` (with `lsblk` for listing device, put it in `of=...`) 
+- On Mac, run `sudo dd if=raspbian_latest of=/dev/rdisk2 BS=1m` (with `diskutil list` for listing device, put it in `of=...`)
+
+Raspberry is ready.
+
+## 1 - Docker on Rpi
+
+Run directly this script [init.sh](https://github.com/jhanzo/rpi-utils/blob/master/scripts/init.sh) for updating OS and dowloading required and optional (but useful) packages.
+
 
