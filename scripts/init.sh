@@ -1,3 +1,11 @@
+sudo apt-get update \
+  && apt-get install wget \
+  && apt-get install vim
+  
+#--------#
+# Docker #
+#--------#
+  
 #download Docker for Raspberry
 curl -sSL https://get.docker.com | sh
 
