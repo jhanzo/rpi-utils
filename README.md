@@ -15,4 +15,8 @@ Raspberry is ready.
 
 Run directly this script [init.sh](https://github.com/jhanzo/rpi-utils/blob/master/scripts/init.sh) for updating OS and dowloading required and optional (but useful) packages.
 
+Docker cheatsheets : 
+- https://docs.docker.com/engine/reference/builder/
+- https://github.com/wsargent/docker-cheat-sheet
+- http://ricostacruz.com/cheatsheets/docker.html
 
