@@ -1,13 +1,9 @@
 FROM resin/rpi-raspbian
 
-ENV HOME /root
+COPY install.sh /tmp/
 
-RUN apt-get -y update && \
-    apt-get -y upgrade && \
-    apt-get install wget
+RUN chmod +x /tmp/install.sh
 
-RUN wget https://raw.githubusercontent.com/jhanzo/rpi-utils/master/docker/jeedom/install.sh && \
-    chmod +x install.sh && \
-    ./install.sh
+CMD ["/tmp/install.sh"]
 
 EXPOSE 80
