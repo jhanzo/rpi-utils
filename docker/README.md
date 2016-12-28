@@ -1,4 +1,8 @@
-Below some interesting docker images :
+Below some relevant docker images :
+
+### Raspbian base (from hub)
+
+docker pull resin/rpi-raspbian
 
 ### Airplay
 *For streaming iOS devices on raspberry without any Apple TV*
