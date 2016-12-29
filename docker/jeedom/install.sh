@@ -14,7 +14,7 @@ apt-get update
 
 echo -e "${YELLOW}----------------------------------------------------------${NC}"
 echo "${YELLOW}Install packages ${NC}"
-apt-get install ntp ca-certificates unzip curl sudo cron
+apt-get install ntp ca-certificates unzip curl sudo cron apt-utils
 apt-get -y install locate tar telnet wget logrotate fail2ban
 apt-get -y install software-properties-common
 apt-get -y install libexpat1 ssl-cert
@@ -60,11 +60,12 @@ echo "mysql-server mysql-server/root_password_again password ${MYSQL_ROOT_PASSWD
 mysqladmin -u root password ${MYSQL_ROOT_PASSWD}
 
 echo -e "${YELLOW}----------------------------------------------------------${NC}"
-echo "${YELLOW}Jeedom Installation ${NC}"
+echo -e "${YELLOW}Jeedom Installation ${NC}"
 wget https://github.com/jeedom/core/archive/stable.zip -O /root/jeedom.zip
 cp /root/jeedom.zip /tmp/jeedom.zip
 mkdir -p ${WEBSERVER_HOME}
-find ${WEBSERVER_HOME} ! -name 'index.html' -type f -exec rm -rf {} + rm -rf /root/core-*
+find ${WEBSERVER_HOME} ! -name 'index.html' -type f -exec rm -rf {} +
+rm -rf /root/core-*
 unzip -q /tmp/jeedom.zip -d /root/
 cp -R /root/core-*/* ${WEBSERVER_HOME}
 rm -rf /root/core-* > /dev/null 2>&1
