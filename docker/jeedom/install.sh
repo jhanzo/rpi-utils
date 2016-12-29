@@ -1,16 +1,20 @@
 #!/bin/sh
 
-STEP=0
-VERSION=stable
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
 WEBSERVER_HOME=/var/www/html
 HTML_OUTPUT=0
 export MYSQL_ROOT_PASSWD=$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 15)
 export MYSQL_JEEDOM_PASSWD=$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 15)
 
-echo ">>>>> System Update <<<<<"
+echo -e "${YELLOW}----------------------------------------------------------${NC}"
+echo -e "${YELLOW}System Update ${NC}"
 apt-get update
 
-echo ">>>>> Install packages <<<<<"
+echo -e "${YELLOW}----------------------------------------------------------${NC}"
+echo "${YELLOW}Install packages ${NC}"
 apt_install ntp ca-certificates unzip curl sudo cron
 apt-get -y install locate tar telnet wget logrotate fail2ban
 apt-get -y install software-properties-common
@@ -59,13 +63,15 @@ pip install flask-restful
 pip install flask-httpauth
 pip install six
 
-echo ">>>>> Database Setup <<<<<"
+echo -e "${YELLOW}----------------------------------------------------------${NC}"
+echo -e "${YELLOW}Database Setup ${NC}"
 echo "mysql-server mysql-server/root_password password ${MYSQL_ROOT_PASSWD}" | debconf-set-selections
 echo "mysql-server mysql-server/root_password_again password ${MYSQL_ROOT_PASSWD}" | debconf-set-selections
 mysqladmin -u root password ${MYSQL_ROOT_PASSWD}
 
-echo ">>>>> Jeedom Installation <<<<<"
-wget https://github.com/jeedom/core/archive/${VERSION}.zip -O /tmp/jeedom.zip
+echo -e "${YELLOW}----------------------------------------------------------${NC}"
+echo "${YELLOW}Jeedom Installation ${NC}"
+wget https://github.com/jeedom/core/archive/stable.zip -O /tmp/jeedom.zip
 cp /root/jeedom.zip /tmp/jeedom.zip
 mkdir -p ${WEBSERVER_HOME}
 find ${WEBSERVER_HOME} ! -name 'index.html' -type f -exec rm -rf {} + rm -rf /root/core-*
@@ -74,7 +80,8 @@ cp -R /root/core-*/* ${WEBSERVER_HOME}
 rm -rf /root/core-* > /dev/null 2>&1
 rm /tmp/jeedom.zip
 
-echo ">>>>> Jeedom Settings <<<<<"
+echo -e "${YELLOW}----------------------------------------------------------${NC}"
+echo -e "${YELLOW}Jeedom Settings ${NC}"
 cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
 cp /etc/nginx/sites-available/default_ssl /etc/nginx/sites-available/default_ssl.bak
 cp ${WEBSERVER_HOME}/install/nginx_default /etc/nginx/nginx.conf
@@ -96,11 +103,13 @@ if [ -d /etc/mysql/conf.d ]; then
 	echo "innodb_log_file_size = 32M" >> /etc/mysql/conf.d/jeedom_my.cnf
 fi
 
-echo ">>>>> Starting Services <<<<<"
+echo -e "${YELLOW}----------------------------------------------------------${NC}"
+echo -e "${YELLOW}Starting Services ${NC}"
 /etc/init.d/mysql restart
 /etc/init.d/nginx restart
 
-echo ">>>>> Database Configuration <<<<<"
+echo -e "${YELLOW}----------------------------------------------------------${NC}"
+echo "${YELLOW}Database Configuration ${NC}"
 echo "DROP USER 'jeedom'@'localhost';" | mysql -uroot -p${MYSQL_ROOT_PASSWD} > /dev/null 2>&1
 mysql_sql "CREATE USER 'jeedom'@'localhost' IDENTIFIED BY '${MYSQL_JEEDOM_PASSWD}';"
 mysql_sql "DROP DATABASE IF EXISTS jeedom;"
@@ -115,17 +124,18 @@ sed -i "s/#HOST#/localhost/g" ${WEBSERVER_HOME}/core/config/common.config.php
 chmod 775 -R ${WEBSERVER_HOME}
 chown -R www-data:www-data ${WEBSERVER_HOME}
 
-echo ">>>>> Jeedom Configuration <<<<<"
+echo -e "${YELLOW}----------------------------------------------------------${NC}"
+echo -e "${YELLOW}Jeedom Configuration ${NC}"
 php ${WEBSERVER_HOME}/install/install.php mode=force
 
 if [ -f post-install.sh ]; then
 	rm post-install.sh
 fi
 if [ -f /etc/armbian.txt ]; then
-	wget https://raw.githubusercontent.com/jeedom/core/${VERSION}/install/OS_specific/armbian/post-install.sh
+	wget https://raw.githubusercontent.com/jeedom/core/stable/install/OS_specific/armbian/post-install.sh
 fi
 if [ -f /usr/bin/raspi-config ]; then
-	wget https://raw.githubusercontent.com/jeedom/core/${VERSION}/install/OS_specific/rpi/post-install.sh
+	wget https://raw.githubusercontent.com/jeedom/core/stable/install/OS_specific/rpi/post-install.sh
 fi
 if [ -f post-install.sh ]; then
 	chmod +x post-install.sh
@@ -133,9 +143,10 @@ if [ -f post-install.sh ]; then
 	rm post-install.sh
 fi
 
-echo "Welcome to jeedom installer"
-echo "Jeedom install version : ${VERSION}"
-echo "Webserver home folder : ${WEBSERVER_HOME}"
+echo -e "${GREEN}----------------------------------------------------------${NC}"
+echo -e "${GREEN}Welcome to jeedom installer ${NC}"
+echo -e "${GREEN}Jeedom install version : stable ${NC}"
+echo -e "${GREEN}Webserver home folder : ${WEBSERVER_HOME} ${NC}"
 
 rm -rf ${WEBSERVER_HOME}/index.html > /dev/null 2>&1
 
