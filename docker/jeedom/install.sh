@@ -14,7 +14,7 @@ apt-get update
 
 echo -e "${YELLOW}----------------------------------------------------------${NC}"
 echo "${YELLOW}Install packages ${NC}"
-apt_install ntp ca-certificates unzip curl sudo cron
+apt-get install ntp ca-certificates unzip curl sudo cron
 apt-get -y install locate tar telnet wget logrotate fail2ban
 apt-get -y install software-properties-common
 apt-get -y install libexpat1 ssl-cert
