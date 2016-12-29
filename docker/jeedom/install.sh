@@ -5,7 +5,6 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 
 WEBSERVER_HOME=/var/www/html
-HTML_OUTPUT=0
 export MYSQL_ROOT_PASSWD=$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 15)
 export MYSQL_JEEDOM_PASSWD=$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 15)
 
@@ -20,8 +19,6 @@ apt-get -y install locate tar telnet wget logrotate fail2ban
 apt-get -y install software-properties-common
 apt-get -y install libexpat1 ssl-cert
 apt-get -y install apt-transport-https
-add-apt-repository non-free
-apt-get update
 apt-get -y install libav-tools
 apt-get -y install libsox-fmt-mp3 sox libttspico-utils
 apt-get -y install smbclient htop iotop vim iftop
@@ -36,20 +33,13 @@ apt-get -y install python-serial
 apt-get -y install python-requests
 apt-get -y install python-pyudev
 apt-get -y install python-nut
-apt-get -y install python-dev python-setuptools python-louie python-sphinx make build-essential libudev-dev g++ gcc python-lxml libjpeg-dev
+apt-get -y install python-dev python-setuptools python-louie python-sphinx make build-essential libudev-dev g++ gcc python-lxml libjpeg-dev zlib-dev
 apt-get -y install openvpn
-apt-get install mysql-server
-apt-get install mysql-client
-apt-get install mysql-common
-apt-get install nginx
+apt-get install mysql-server mysql-client mysql-common
+apt-get install nginx nginx-common nginx-full
 apt-get install libexpat1
 apt-get install ssl-cert
-apt-get install php5-common
-apt-get install php5-cli
-apt-get install php5-curl
-apt-get install php5-json
-apt-get install php5-mysql
-apt-get install php5-gd
+apt-get install php5-common php5-cli php5-curl php5-json php5-mysql php5-gd
 pip install enum-compat
 pip install beautifulsoup4
 pip install sphinxcontrib-blockdiag
@@ -71,7 +61,7 @@ mysqladmin -u root password ${MYSQL_ROOT_PASSWD}
 
 echo -e "${YELLOW}----------------------------------------------------------${NC}"
 echo "${YELLOW}Jeedom Installation ${NC}"
-wget https://github.com/jeedom/core/archive/stable.zip -O /tmp/jeedom.zip
+wget https://github.com/jeedom/core/archive/stable.zip -O /root/jeedom.zip
 cp /root/jeedom.zip /tmp/jeedom.zip
 mkdir -p ${WEBSERVER_HOME}
 find ${WEBSERVER_HOME} ! -name 'index.html' -type f -exec rm -rf {} + rm -rf /root/core-*
