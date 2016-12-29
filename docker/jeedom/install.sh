@@ -147,6 +147,7 @@ echo "----------------------------------------------------------"
 echo "Welcome to jeedom installer "
 echo "Jeedom install version : stable "
 echo "Webserver home folder : ${WEBSERVER_HOME} "
+echo "Your MySQL password is : ${MYSQL_ROOT_PASSWD}"
 echo "----------------------------------------------------------"
 
 rm -rf ${WEBSERVER_HOME}/index.html > /dev/null 2>&1
