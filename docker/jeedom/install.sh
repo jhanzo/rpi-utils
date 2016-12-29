@@ -1,19 +1,17 @@
 #!/bin/sh
 
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m'
-
 WEBSERVER_HOME=/var/www/html
 export MYSQL_ROOT_PASSWD=$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 15)
 export MYSQL_JEEDOM_PASSWD=$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 15)
 
-echo -e "${YELLOW}----------------------------------------------------------${NC}"
-echo -e "${YELLOW}System Update ${NC}"
+echo "----------------------------------------------------------"
+echo "System Update "
+echo "----------------------------------------------------------"
 apt-get update
 
-echo -e "${YELLOW}----------------------------------------------------------${NC}"
-echo "${YELLOW}Install packages ${NC}"
+echo "----------------------------------------------------------"
+echo "Install packages "
+echo "----------------------------------------------------------"
 apt-get install ntp ca-certificates unzip curl sudo cron apt-utils
 apt-get -y install locate tar telnet wget logrotate fail2ban
 apt-get -y install software-properties-common
@@ -36,7 +34,6 @@ apt-get -y install python-nut
 apt-get -y install python-dev python-setuptools python-louie python-sphinx make build-essential libudev-dev g++ gcc python-lxml libjpeg-dev zlib-dev
 apt-get -y install openvpn
 apt-get install mysql-server mysql-client mysql-common
-apt-get install nginx nginx-common nginx-full
 apt-get install libexpat1
 apt-get install ssl-cert
 apt-get install php5-common php5-cli php5-curl php5-json php5-mysql php5-gd
@@ -53,26 +50,35 @@ pip install flask-restful
 pip install flask-httpauth
 pip install six
 
-echo -e "${YELLOW}----------------------------------------------------------${NC}"
-echo -e "${YELLOW}Database Setup ${NC}"
+echo "----------------------------------------------------------"
+echo "Database Setup "
+echo "----------------------------------------------------------"
+/etc/init.d/mysql start
 echo "mysql-server mysql-server/root_password password ${MYSQL_ROOT_PASSWD}" | debconf-set-selections
 echo "mysql-server mysql-server/root_password_again password ${MYSQL_ROOT_PASSWD}" | debconf-set-selections
 mysqladmin -u root password ${MYSQL_ROOT_PASSWD}
 
-echo -e "${YELLOW}----------------------------------------------------------${NC}"
-echo -e "${YELLOW}Jeedom Installation ${NC}"
+echo "----------------------------------------------------------"
+echo "Jeedom Installation "
+echo "----------------------------------------------------------"
 wget https://github.com/jeedom/core/archive/stable.zip -O /root/jeedom.zip
 cp /root/jeedom.zip /tmp/jeedom.zip
 mkdir -p ${WEBSERVER_HOME}
 find ${WEBSERVER_HOME} ! -name 'index.html' -type f -exec rm -rf {} +
 rm -rf /root/core-*
 unzip -q /tmp/jeedom.zip -d /root/
+if [ $? -ne 0 ]; then
+	echo "Could not unzip archive - abort"
+	exit 1
+fi
 cp -R /root/core-*/* ${WEBSERVER_HOME}
 rm -rf /root/core-* > /dev/null 2>&1
 rm /tmp/jeedom.zip
 
-echo -e "${YELLOW}----------------------------------------------------------${NC}"
-echo -e "${YELLOW}Jeedom Settings ${NC}"
+echo "----------------------------------------------------------"
+echo "Jeedom Settings "
+echo "----------------------------------------------------------"
+apt-get install nginx nginx-common nginx-full
 cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
 cp /etc/nginx/sites-available/default_ssl /etc/nginx/sites-available/default_ssl.bak
 cp ${WEBSERVER_HOME}/install/nginx_default /etc/nginx/nginx.conf
@@ -94,13 +100,15 @@ if [ -d /etc/mysql/conf.d ]; then
 	echo "innodb_log_file_size = 32M" >> /etc/mysql/conf.d/jeedom_my.cnf
 fi
 
-echo -e "${YELLOW}----------------------------------------------------------${NC}"
-echo -e "${YELLOW}Starting Services ${NC}"
+echo "----------------------------------------------------------"
+echo "Starting Services "
+echo "----------------------------------------------------------"
 /etc/init.d/mysql restart
 /etc/init.d/nginx restart
 
-echo -e "${YELLOW}----------------------------------------------------------${NC}"
-echo "${YELLOW}Database Configuration ${NC}"
+echo "----------------------------------------------------------"
+echo "Database Configuration "
+echo "----------------------------------------------------------"
 echo "DROP USER 'jeedom'@'localhost';" | mysql -uroot -p${MYSQL_ROOT_PASSWD} > /dev/null 2>&1
 mysql_sql "CREATE USER 'jeedom'@'localhost' IDENTIFIED BY '${MYSQL_JEEDOM_PASSWD}';"
 mysql_sql "DROP DATABASE IF EXISTS jeedom;"
@@ -115,8 +123,9 @@ sed -i "s/#HOST#/localhost/g" ${WEBSERVER_HOME}/core/config/common.config.php
 chmod 775 -R ${WEBSERVER_HOME}
 chown -R www-data:www-data ${WEBSERVER_HOME}
 
-echo -e "${YELLOW}----------------------------------------------------------${NC}"
-echo -e "${YELLOW}Jeedom Configuration ${NC}"
+echo "----------------------------------------------------------"
+echo "Jeedom Configuration "
+echo "----------------------------------------------------------"
 php ${WEBSERVER_HOME}/install/install.php mode=force
 
 if [ -f post-install.sh ]; then
@@ -134,10 +143,11 @@ if [ -f post-install.sh ]; then
 	rm post-install.sh
 fi
 
-echo -e "${GREEN}----------------------------------------------------------${NC}"
-echo -e "${GREEN}Welcome to jeedom installer ${NC}"
-echo -e "${GREEN}Jeedom install version : stable ${NC}"
-echo -e "${GREEN}Webserver home folder : ${WEBSERVER_HOME} ${NC}"
+echo "----------------------------------------------------------"
+echo "Welcome to jeedom installer "
+echo "Jeedom install version : stable "
+echo "Webserver home folder : ${WEBSERVER_HOME} "
+echo "----------------------------------------------------------"
 
 rm -rf ${WEBSERVER_HOME}/index.html > /dev/null 2>&1
 
