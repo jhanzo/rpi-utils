@@ -40,6 +40,7 @@ RUN mkdir -p /var/www/html && \
   rm -rf /root/core-* > /dev/null 2>&1
 
 COPY nginx.conf /etc/nginx/sites-available/default
+RUN touch /etc/nginx/sites-available/jeedom_dynamic_rule && chmod 777 /etc/nginx/sites-available/jeedom_dynamic_rule
 RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
 #############
