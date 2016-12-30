@@ -13,7 +13,7 @@ RUN apt-get -y dist-upgrade
 #Dependencies
 RUN apt-get -y install dialog apt-utils libterm-readline-perl-perl supervisor \
   mysql-client \
-  nginx-common nginx-full ntp ca-certificates unzip curl sudo \
+  nginx nginx-common nginx-full ntp ca-certificates unzip curl sudo \
   php5-cli php5-common php5-curl php5-fpm php5-json php5-mysql php5-gd \
   wget cron
 RUN apt-get autoremove
@@ -37,11 +37,10 @@ RUN mkdir -p /var/www/html && \
   wget https://github.com/jeedom/core/archive/stable.zip -O /tmp/jeedom.zip && \
   unzip -q /tmp/jeedom.zip -d /root/ && \
   cp -R /root/core-*/* /var/www/html/ && \
-  cp -R /root/core-*/.htaccess /var/www/html/
-
-# Jeedom configuration
-COPY nginx_default /etc/nginx/sites-available/default
-RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+  rm -rf /root/core-* > /dev/null 2>&1 && \
+  cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak && \
+  cp /etc/nginx/sites-available/default_ssl /etc/nginx/sites-available/default_ssl.bak && \
+  cp /var/www/html/install/nginx_default /etc/nginx/nginx.conf
 
 #############
 # Openzwave #
