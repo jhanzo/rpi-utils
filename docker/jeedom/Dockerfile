@@ -38,8 +38,6 @@ RUN mkdir -p /var/www/html && \
   unzip -q /tmp/jeedom.zip -d /root/ && \
   cp -R /root/core-*/* /var/www/html/ && \
   rm -rf /root/core-* > /dev/null 2>&1 && \
-  cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak && \
-  cp /etc/nginx/sites-available/default_ssl /etc/nginx/sites-available/default_ssl.bak && \
   cp /var/www/html/install/nginx_default /etc/nginx/nginx.conf
 
 #############
