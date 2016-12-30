@@ -39,7 +39,8 @@ RUN mkdir -p /var/www/html && \
   cp -R /root/core-*/* /var/www/html/ && \
   rm -rf /root/core-* > /dev/null 2>&1
 
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/sites-available/default
+RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
 #############
 # Openzwave #
