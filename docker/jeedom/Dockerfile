@@ -37,8 +37,9 @@ RUN mkdir -p /var/www/html && \
   wget https://github.com/jeedom/core/archive/stable.zip -O /tmp/jeedom.zip && \
   unzip -q /tmp/jeedom.zip -d /root/ && \
   cp -R /root/core-*/* /var/www/html/ && \
-  rm -rf /root/core-* > /dev/null 2>&1 && \
-  cp /var/www/html/install/nginx_default /etc/nginx/nginx.conf
+  rm -rf /root/core-* > /dev/null 2>&1
+
+COPY nginx.conf /etc/nginx/nginx.conf
 
 #############
 # Openzwave #
