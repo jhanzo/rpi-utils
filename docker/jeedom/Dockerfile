@@ -3,7 +3,10 @@ FROM resin/rpi-raspbian
 #Inspired by sbeuzit/docker-rpi-jeedom
 MAINTAINER subena.io@gmail.com
 
-#System update
+#################
+# System update #
+#################
+
 RUN apt-get update
 RUN apt-get -y dist-upgrade
 
@@ -15,7 +18,10 @@ RUN apt-get -y install dialog apt-utils libterm-readline-perl-perl supervisor \
   wget cron
 RUN apt-get autoremove
 
-# NGINX
+#########
+# NGINX #
+#########
+
 RUN mkdir -p /var/www/html/log && \
  sed -i 's/max_execution_time = 30/max_execution_time = 600/g' /etc/php5/fpm/php.ini && \
  sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 1G/g' /etc/php5/fpm/php.ini && \
@@ -25,10 +31,6 @@ RUN mkdir -p /var/www/html/log && \
  rm /etc/nginx/sites-available/default && \
  rm /etc/nginx/sites-enabled/default
 
-# Jeedom configuration
-COPY nginx_default /etc/nginx/sites-available/default
-RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-
 #Jeedom files
 RUN mkdir -p /var/www/html && \
   rm -rf /root/core-* && \
@@ -37,7 +39,14 @@ RUN mkdir -p /var/www/html && \
   cp -R /root/core-*/* /var/www/html/ && \
   cp -R /root/core-*/.htaccess /var/www/html/
 
-# For Openzwave
+# Jeedom configuration
+COPY nginx_default /etc/nginx/sites-available/default
+RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+#############
+# Openzwave #
+#############
+
 RUN mkdir -p /var/www/html/plugins/openzwave/data && \
   chown -R www-data.www-data /var/www/html/plugins/openzwave/data
 
@@ -47,7 +56,10 @@ RUN sed -i 's/,127.0.0.1/,127.0.0.1,172.17.*.*/' /var/www/html/core/config/defau
 RUN mkdir /etc/nginx/ssl
 RUN openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt -subj "/C=FR/ST=France/L=Nice/O=Home/OU=Home/CN=jeedom.com"
 
-# Supervisor
+##############
+# Supervisor #
+##############
+
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
