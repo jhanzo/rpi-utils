@@ -12,11 +12,4 @@ So you could configure how to access to your database in the following Dockerfil
 
 For creating Jeedom required database you have to configure one as official doc described it :
 
-According to [install/install.sh](https://github.com/jeedom/core/blob/beta/install/install.sh), based on jeedom_my.cnf, you should adapt your db in this way :
-```bash	
-  echo "DROP USER 'jeedom'@'localhost';" | mysql -uroot -p${MYSQL_ROOT_PASSWD} > /dev/null 2>&1
-	mysql_sql "CREATE USER 'jeedom'@'localhost' IDENTIFIED BY '${MYSQL_JEEDOM_PASSWD}';"
-	mysql_sql "DROP DATABASE IF EXISTS jeedom;"
-	mysql_sql "CREATE DATABASE jeedom;"
-	mysql_sql "GRANT ALL PRIVILEGES ON jeedom.* TO 'jeedom'@'%';"
-```
+According to [install/install.sh](https://github.com/jeedom/core/blob/beta/install/install.sh), you should rely on jeedom_my.cnf and a database named `jeedom` with an user named `jeedom`.
