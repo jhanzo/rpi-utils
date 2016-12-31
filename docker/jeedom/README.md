@@ -1,3 +1,5 @@
+#Jeedom (for rulling them all)
+
 This folder is about Jeedom configuration.
 
 Technically, it is only a webserver (nginx) configuration from [jeedom/core](https://github.com/jeedom/core) sources.
@@ -29,7 +31,7 @@ According to [install/install.sh](https://github.com/jeedom/core/blob/beta/insta
     fi
 ```
 And :
-```bash```	
+```bash	
   echo "DROP USER 'jeedom'@'localhost';" | mysql -uroot -p${MYSQL_ROOT_PASSWD} > /dev/null 2>&1
 	mysql_sql "CREATE USER 'jeedom'@'localhost' IDENTIFIED BY '${MYSQL_JEEDOM_PASSWD}';"
 	mysql_sql "DROP DATABASE IF EXISTS jeedom;"
