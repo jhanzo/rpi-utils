@@ -20,7 +20,7 @@ RUN apt-get -y dist-upgrade
 RUN apt-get -y install dialog apt-utils libterm-readline-perl-perl supervisor \
   mysql-client \
   nginx-common nginx-full ntp ca-certificates unzip curl sudo wget cron \
-  php5-cli php5-common php5-curl php5-fpm php5-json php5-mysql php5-gd php-pear \
+  php5-cli php5-common php5-curl php5-fpm php5-json php5-mysql php5-gd php-pear
 RUN apt-get autoremove
 
 #########
