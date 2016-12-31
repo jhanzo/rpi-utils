@@ -1,6 +1,6 @@
 FROM resin/rpi-raspbian
 
-#Inspired by sbeuzit/docker-rpi-jeedom
+#Inspired by sbeuzit/docker-rpi-jeedom 716,7MB
 MAINTAINER subena.io@gmail.com
 
 ENV MYSQL_HOST localhost
@@ -51,10 +51,6 @@ RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 #Add Jeedom sudo right
 RUN echo "root ALL=(ALL) NOPASSWD: ALL" | (EDITOR="tee -a" visudo)
 
-#Add crontab line for jeedom
-RUN echo "* * * * * su --shell=/bin/bash - root -c '/usr/bin/php /var/www/html/core/php/jeeCron.php' >> /dev/null";
-RUN (crontab -l | grep -v "jeedom" | grep -v "jeeCron" ) | crontab -
-
 ##############
 # MySQL Conf #
 ##############
@@ -85,6 +81,7 @@ RUN openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/nginx/ssl/
 ##############
 # Supervisor #
 ##############
+# https://docs.docker.com/engine/admin/using_supervisord/
 
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
