@@ -3,6 +3,14 @@ Below some usefull docker images :
 **Raspbian base**
 > [resin/rpi-raspbian](https://hub.docker.com/r/resin/rpi-raspbian/)
 
+**Jeedom** - For managing IoT
+
+Inspired by :
+
+> [jeedom/core](https://github.com/jeedom/core/blob/beta/install/install.sh)
+
+> [sbeuzit/docker-rpi-jeedom](https://github.com/sbeuzit/docker-rpi-jeedom/blob/master/jeedom/Build/Dockerfile)
+
 **Airplay** - *For streaming iOS devices on raspberry without any Apple TV*
 > [dweidenfeld/armhf-airplay](https://hub.docker.com/r/dweidenfeld/armhf-airplay/)
 
