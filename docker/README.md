@@ -3,7 +3,7 @@ Below some usefull docker images :
 **Raspbian base**
 > [resin/rpi-raspbian](https://hub.docker.com/r/resin/rpi-raspbian/)
 
-**Jeedom** - For managing iot
+**Jeedom** - For managing IoT
 
 Inspired by :
 
