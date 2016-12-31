@@ -3,6 +3,12 @@ FROM resin/rpi-raspbian
 #Inspired by sbeuzit/docker-rpi-jeedom
 MAINTAINER subena.io@gmail.com
 
+ENV MYSQL_HOST localhost
+ENV MYSQL_PORT 3306
+ENV MYSQL_NAME jeedom
+ENV MYSQL_USERNAME jeedom
+ENV MYSQL_PASSWORD localhost
+
 #################
 # System update #
 #################
@@ -13,9 +19,8 @@ RUN apt-get -y dist-upgrade
 #Dependencies
 RUN apt-get -y install dialog apt-utils libterm-readline-perl-perl supervisor \
   mysql-client \
-  nginx-common nginx-full ntp ca-certificates unzip curl sudo \
-  php5-cli php5-common php5-curl php5-fpm php5-json php5-mysql php5-gd \
-  wget cron
+  nginx-common nginx-full ntp ca-certificates unzip curl sudo wget cron \
+  php5-cli php5-common php5-curl php5-fpm php5-json php5-mysql php5-gd php-pear \
 RUN apt-get autoremove
 
 #########
@@ -42,6 +47,27 @@ RUN mkdir -p /var/www/html && \
 COPY nginx.conf /etc/nginx/sites-available/default
 RUN touch /etc/nginx/sites-available/jeedom_dynamic_rule && chmod 777 /etc/nginx/sites-available/jeedom_dynamic_rule
 RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+#Add Jeedom sudo right
+RUN echo "root ALL=(ALL) NOPASSWD: ALL" | (EDITOR="tee -a" visudo)
+
+#Add crontab line for jeedom
+RUN echo "* * * * * su --shell=/bin/bash - root -c '/usr/bin/php /var/www/html/core/php/jeeCron.php' >> /dev/null";
+RUN (crontab -l | grep -v "jeedom" | grep -v "jeeCron" ) | crontab -
+
+##############
+# MySQL Conf #
+##############
+
+RUN cp /var/www/html/core/config/common.config.sample.php /var/www/html/core/config/common.config.php && \
+	sed -i "s/#PASSWORD#/${MYSQL_PASSWORD}/g" /var/www/html/core/config/common.config.php && \
+	sed -i "s/#DBNAME#/${MYSQL_NAME}/g" /var/www/html/core/config/common.config.php && \
+	sed -i "s/#USERNAME#/${MYSQL_USERNAME}/g" /var/www/html/core/config/common.config.php && \
+	sed -i "s/#PORT#/${MYSQL_PORT}/g" /var/www/html/core/config/common.config.php && \
+	sed -i "s/#HOST#/${MYSQL_HOST}/g" /var/www/html/core/config/common.config.php
+
+RUN chmod 775 -R /var/www/html && \
+	chown -R www-data:www-data /var/www/html
 
 #############
 # Openzwave #
