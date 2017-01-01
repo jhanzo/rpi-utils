@@ -13,7 +13,17 @@ Raspberry is ready.
 
 ## 1 - Docker on Rpi
 
-Run directly this script [init.sh](https://github.com/jhanzo/rpi-utils/blob/master/scripts/init.sh) for updating OS and dowloading required and optional (but useful) packages.
+Run directly following commands for updating OS and dowloading required packages :
+```bash
+#download Docker for Raspberry
+curl -sSL https://get.docker.com | sh
+
+#add pi user to docker group
+sudo usermod -aG docker pi
+
+#enable docker service
+sudo systemctl enable docker.service
+```
 
 Docker cheatsheets : 
 - https://docs.docker.com/engine/reference/builder/
