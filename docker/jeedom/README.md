@@ -14,10 +14,17 @@ For creating Jeedom database you have to build and run rpi-mysql with your **set
 
 ```bash
 docker run -d -p 3306:3306 \
--v /home/subena/rpi-mysql/docker/jeedom/jeedom-mysql:/etc/mysql/conf.d \
+-v /home/subena/rpi-utils/docker/jeedom/jeedom-mysql:/etc/mysql/conf.d \
 -e MYSQL_ROOT_PASSWORD=toor \
 -e MYSQL_DATABASE=jeedom \
 -e MYSQL_USER=jeedom \
 -e MYSQL_PASSWORD=jeedom \
 --name rpi-mysql tobi312/rpi-mysql
+```
+
+###Jeedom configuration
+
+And then run a Jeedom container link with previous mysql container :
+```bash
+docker run -dt -p 80:80 --link rpi-mysql:mysql --name rpi-jeedom jeedom
 ```
