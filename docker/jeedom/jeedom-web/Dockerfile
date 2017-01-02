@@ -3,12 +3,6 @@ FROM resin/rpi-raspbian
 #Inspired by sbeuzit/docker-rpi-jeedom 716,7MB
 MAINTAINER subena.io@gmail.com
 
-ARG MYSQL_HOST
-ARG MYSQL_PORT
-ARG MYSQL_DATABASE
-ARG MYSQL_USER
-ARG MYSQL_PASSWORD
-
 #################
 # System update #
 #################
