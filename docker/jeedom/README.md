@@ -24,7 +24,17 @@ docker run -d -p 3306:3306 \
 
 ###Jeedom configuration
 
+Build Jeedom Docker image thanks to :
+```bash
+docker build —tag=jeedom .
+```
+
 And then run a Jeedom container link with previous mysql container :
 ```bash
-docker run -dt -p 80:80 --link rpi-mysql:mysql --name rpi-jeedom jeedom
+docker run -dt -p 80:80 \
+-e MYSQL_DATABASE=jeedom \
+-e MYSQL_USER=jeedom \
+-e MYSQL_PASSWORD=jeedom \
+--link rpi-mysql:mysql \
+--name rpi-jeedom jeedom
 ```
