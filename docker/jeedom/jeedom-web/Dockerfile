@@ -3,6 +3,8 @@ FROM resin/rpi-raspbian
 #Inspired by sbeuzit/docker-rpi-jeedom 716,7MB
 MAINTAINER subena.io@gmail.com
 
+ARG MYSQL_HOST
+ARG MYSQL_PORT
 ARG MYSQL_DATABASE
 ARG MYSQL_USER
 ARG MYSQL_PASSWORD
@@ -53,12 +55,7 @@ RUN echo "root ALL=(ALL) NOPASSWD: ALL" | (EDITOR="tee -a" visudo)
 # MySQL Conf #
 ##############
 
-RUN cp /var/www/html/core/config/common.config.sample.php /var/www/html/core/config/common.config.php && \
-	sed -i "s/#PASSWORD#/${MYSQL_PASSWORD}/g" /var/www/html/core/config/common.config.php && \
-	sed -i "s/#DBNAME#/${MYSQL_DATABASE}/g" /var/www/html/core/config/common.config.php && \
-	sed -i "s/#USERNAME#/${MYSQL_USER}/g" /var/www/html/core/config/common.config.php && \
-	sed -i "s/#PORT#/${MYSQL_PORT_3306_TCP_PORT}/g" /var/www/html/core/config/common.config.php && \
-	sed -i "s/#HOST#/${MYSQL_PORT_3306_TCP_ADDR}/g" /var/www/html/core/config/common.config.php
+COPY common.config.php /var/www/html/core/config/common.config.php
 
 RUN chmod 775 -R /var/www/html && \
 	chown -R www-data:www-data /var/www/html
