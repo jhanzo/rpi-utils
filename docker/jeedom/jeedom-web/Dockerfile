@@ -3,11 +3,11 @@ FROM resin/rpi-raspbian
 #Inspired by sbeuzit/docker-rpi-jeedom 716,7MB
 MAINTAINER subena.io@gmail.com
 
-MYSQL_HOST $(awk '/^host/{print $3}' jeedom_my.cnf)
-MYSQL_PORT $(awk '/^port/{print $3}' jeedom_my.cnf)
-MYSQL_DATABASE $(awk '/^database/{print $3}' jeedom_my.cnf)
-MYSQL_USERNAME $(awk '/^username/{print $3}' jeedom_my.cnf)
-MYSQL_PASSWORD $(awk '/^password/{print $3}' jeedom_my.cnf)
+MYSQL_HOST $(awk '/^host/{print $3}' jeedom-mysql/jeedom_my.cnf)
+MYSQL_PORT $(awk '/^port/{print $3}' jeedom-mysql/jeedom_my.cnf)
+MYSQL_DATABASE $(awk '/^database/{print $3}' jeedom-mysql/jeedom_my.cnf)
+MYSQL_USERNAME $(awk '/^username/{print $3}' jeedom-mysql/jeedom_my.cnf)
+MYSQL_PASSWORD $(awk '/^password/{print $3}' jeedom-mysql/jeedom_my.cnf)
 
 #################
 # System update #
@@ -20,7 +20,7 @@ RUN apt-get -y dist-upgrade
 RUN apt-get -y install dialog apt-utils libterm-readline-perl-perl supervisor \
   mysql-client \
   nginx-common nginx-full ntp ca-certificates unzip curl sudo wget cron \
-  php5-cli php5-common php5-curl php5-fpm php5-json php5-mysql php5-gd php-pear 
+  php5-cli php5-common php5-curl php5-fpm php5-json php5-mysql php5-gd php-pear
 RUN apt-get autoremove
 
 #########
