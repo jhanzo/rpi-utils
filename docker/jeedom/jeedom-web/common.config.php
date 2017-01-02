@@ -18,11 +18,15 @@
 define('DEBUG', 0);
 /* * *********************** MySQL & Memcached ******************* */
 global $CONFIG;
+
+$ip = explode(':',$_ENV['MYSQL_PORT'])[1]
+$port = explode(':',$_ENV['MYSQL_PORT'])[2]
+
 $CONFIG = array(
 	//MySQL parametres
 	'db' => array(
-		'host' => $_ENV['MYSQL_ENV_MYSQL_HOST'],
-		'port' => $_ENV['MYSQL_ENV_MYSQL_PORT'],
+		'host' => $ip,
+		'port' => $port,
 		'dbname' => $_ENV['MYSQL_ENV_MYSQL_DATABASE'],
 		'username' => $_ENV['MYSQL_ENV_MYSQL_USER'],
 		'password' => $_ENV['MYSQL_ENV_MYSQL_PASSWORD']
