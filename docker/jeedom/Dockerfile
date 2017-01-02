@@ -3,11 +3,11 @@ FROM resin/rpi-raspbian
 #Inspired by sbeuzit/docker-rpi-jeedom 716,7MB
 MAINTAINER subena.io@gmail.com
 
-ENV MYSQL_HOST $(awk '/^host/{print $3}' jeedom_my.cnf)
-ENV MYSQL_PORT $(awk '/^port/{print $3}' jeedom_my.cnf)
-ENV MYSQL_DATABASE $(awk '/^database/{print $3}' jeedom_my.cnf)
-ENV MYSQL_USERNAME $(awk '/^username/{print $3}' jeedom_my.cnf)
-ENV MYSQL_PASSWORD $(awk '/^password/{print $3}' jeedom_my.cnf)
+MYSQL_HOST $(awk '/^host/{print $3}' jeedom_my.cnf)
+MYSQL_PORT $(awk '/^port/{print $3}' jeedom_my.cnf)
+MYSQL_DATABASE $(awk '/^database/{print $3}' jeedom_my.cnf)
+MYSQL_USERNAME $(awk '/^username/{print $3}' jeedom_my.cnf)
+MYSQL_PASSWORD $(awk '/^password/{print $3}' jeedom_my.cnf)
 
 #################
 # System update #

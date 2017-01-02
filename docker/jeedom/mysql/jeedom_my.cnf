@@ -15,5 +15,5 @@ innodb_log_file_size = 32M
 host=localhost
 port=3306
 database=jeedom
-username=jeedom
+user=jeedom
 password=jeedom
