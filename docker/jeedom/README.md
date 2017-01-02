@@ -22,6 +22,8 @@ docker run -d -p 3306:3306 \
 --name rpi-mysql tobi312/rpi-mysql
 ```
 
+###Jeedom configuration
+
 And then run a Jeedom container link with previous mysql container :
 ```bash
 docker run -dt -p 80:80 --link rpi-mysql:mysql --name rpi-jeedom jeedom
