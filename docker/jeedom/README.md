@@ -21,3 +21,8 @@ docker run -d -p 3306:3306 \
 -e MYSQL_PASSWORD=jeedom \
 --name rpi-mysql tobi312/rpi-mysql
 ```
+
+And then run a Jeedom container link with previous mysql container :
+```bash
+docker run -dt -p 80:80 --link rpi-mysql:mysql --name rpi-jeedom jeedom
+```
