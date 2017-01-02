@@ -11,8 +11,15 @@ RUN apt-get update
 RUN apt-get -y dist-upgrade
 
 #Dependencies
-RUN apt-get -y install mysql-server phpmyadmin
+RUN apt-get -y install mysql-server mysql-client phpmyadmin
 RUN apt-get autoremove
+
+################
+# MySQL Config #
+################
+
+#change mysql root password
+RUN mysqladmin -u root password ${MYSQL_PASSWORD}
 
 #######################
 # Jeedom requirements #
