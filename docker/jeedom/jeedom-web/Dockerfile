@@ -51,8 +51,8 @@ RUN echo "root ALL=(ALL) NOPASSWD: ALL" | (EDITOR="tee -a" visudo)
 
 RUN cp /var/www/html/core/config/common.config.sample.php /var/www/html/core/config/common.config.php && \
 	sed -i "s/#PASSWORD#/${MYSQL_PASSWORD}/g" /var/www/html/core/config/common.config.php && \
-	sed -i "s/#DBNAME#/${MYSQL_NAME}/g" /var/www/html/core/config/common.config.php && \
-	sed -i "s/#USERNAME#/${MYSQL_USERNAME}/g" /var/www/html/core/config/common.config.php && \
+	sed -i "s/#DBNAME#/${MYSQL_DATABASE}/g" /var/www/html/core/config/common.config.php && \
+	sed -i "s/#USERNAME#/${MYSQL_USER}/g" /var/www/html/core/config/common.config.php && \
 	sed -i "s/#PORT#/${MYSQL_PORT_3306_TCP_PORT}/g" /var/www/html/core/config/common.config.php && \
 	sed -i "s/#HOST#/${MYSQL_PORT_3306_TCP_ADDR}/g" /var/www/html/core/config/common.config.php
 
