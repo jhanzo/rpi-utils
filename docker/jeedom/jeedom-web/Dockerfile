@@ -53,8 +53,8 @@ RUN cp /var/www/html/core/config/common.config.sample.php /var/www/html/core/con
 	sed -i "s/#PASSWORD#/${MYSQL_PASSWORD}/g" /var/www/html/core/config/common.config.php && \
 	sed -i "s/#DBNAME#/${MYSQL_NAME}/g" /var/www/html/core/config/common.config.php && \
 	sed -i "s/#USERNAME#/${MYSQL_USERNAME}/g" /var/www/html/core/config/common.config.php && \
-	sed -i "s/#PORT#/${MYSQL_PORT}/g" /var/www/html/core/config/common.config.php && \
-	sed -i "s/#HOST#/${MYSQL_HOST}/g" /var/www/html/core/config/common.config.php
+	sed -i "s/#PORT#/${MYSQL_PORT_3306_TCP_PORT}/g" /var/www/html/core/config/common.config.php && \
+	sed -i "s/#HOST#/${MYSQL_PORT_3306_TCP_ADDR}/g" /var/www/html/core/config/common.config.php
 
 RUN chmod 775 -R /var/www/html && \
 	chown -R www-data:www-data /var/www/html
