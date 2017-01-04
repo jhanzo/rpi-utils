@@ -52,7 +52,9 @@ RUN echo "root ALL=(ALL) NOPASSWD: ALL" | (EDITOR="tee -a" visudo)
 ##############
 
 RUN chmod 775 -R /var/www/html && \
-	chown -R www-data:www-data /var/www/html
+	chown -R www-data:www-data /var/www/html && \
+  chmod 775 -R /tmp/jeedom-cache && \
+  chown -R www-data:www-data /tmp/jeedom-cache
 
 #############
 # Openzwave #
