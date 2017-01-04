@@ -27,6 +27,8 @@ RUN mkdir -p /var/www/html/log && \
  sed -i 's/post_max_size = 8M/post_max_size = 1G/g' /etc/php5/fpm/php.ini && \
  sed -i 's/expose_php = On/expose_php = Off/g' /etc/php5/fpm/php.ini && \
  sed -i 's/pm.max_children = 5/pm.max_children = 20/g' /etc/php5/fpm/pool.d/www.conf && \
+ echo "www-data ALL=(ALL) NOPASSWD: ALL" | (EDITOR="tee -a" visudo) && \
+ cp /etc/php5/fpm/php.ini /etc/php5/cli/php.ini && \
  rm /etc/nginx/sites-available/default && \
  rm /etc/nginx/sites-enabled/default
 
@@ -48,8 +50,6 @@ RUN echo "root ALL=(ALL) NOPASSWD: ALL" | (EDITOR="tee -a" visudo)
 ##############
 # MySQL Conf #
 ##############
-
-COPY common.config.php /var/www/html/core/config/common.config.php
 
 RUN chmod 775 -R /var/www/html && \
 	chown -R www-data:www-data /var/www/html
