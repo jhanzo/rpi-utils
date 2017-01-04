@@ -48,3 +48,5 @@ Finally Go to :
 You should be redirected to `install/setup.php`.
 
 If any error about Cron just run displayed cmd in terminal.
+
+Filled all information about you DB server and let you driving.
