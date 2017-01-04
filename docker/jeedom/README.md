@@ -39,3 +39,12 @@ And then run a Jeedom container link with previous mysql container :
 ```bash
 docker run -dt -p 80:80 --link rpi-mysql:mysql --name rpi-jeedom rpi-jeedom
 ```
+###Access Jeedom
+
+Finally Go to : 
+
+> http://SERVER_NAME:PORT
+
+You should be redirected to `install/setup.php`.
+
+If any error about Cron just run displayed cmd in terminal.
