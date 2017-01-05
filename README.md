@@ -24,3 +24,8 @@ More info on [official blog](https://www.raspberrypi.org/blog/docker-comes-to-ra
 - https://github.com/wsargent/docker-cheat-sheet
 - http://ricostacruz.com/cheatsheets/docker.html
 
+## Security Access
+
+For extrem security access, install OpenVPN. 
+
+A good way to achieve this is [PiVPN](https://github.com/pivpn/pivpn) (very easy install).
