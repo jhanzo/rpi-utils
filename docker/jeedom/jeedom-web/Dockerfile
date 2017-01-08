@@ -38,7 +38,9 @@ RUN mkdir -p /var/www/html && \
   wget https://github.com/jeedom/core/archive/stable.zip -O /tmp/jeedom.zip && \
   unzip -q /tmp/jeedom.zip -d /root/ && \
   cp -R /root/core-*/* /var/www/html/ && \
-  rm -rf /root/core-* > /dev/null 2>&1
+  rm -rf /root/core-* > /dev/null 2>&1 && \
+  chown -R www-data:www-data /var/www/html/ && \
+  chmod -R 755 /var/www/html/
 
 COPY nginx.conf /etc/nginx/sites-available/default
 RUN touch /etc/nginx/sites-available/jeedom_dynamic_rule && chmod 777 /etc/nginx/sites-available/jeedom_dynamic_rule
@@ -52,7 +54,8 @@ RUN echo "root ALL=(ALL) NOPASSWD: ALL" | (EDITOR="tee -a" visudo)
 ##############
 
 RUN chmod 775 -R /var/www/html && \
-	chown -R www-data:www-data /var/www/html && \
+  chown -R www-data:www-data /var/www/html && \
+  mkdir -p /tmp/jeedom-cache && \
   chmod 775 -R /tmp/jeedom-cache && \
   chown -R www-data:www-data /tmp/jeedom-cache
 
@@ -89,4 +92,4 @@ RUN chmod +x /start_supervisord
 
 CMD ["/start_supervisord"]
 
-EXPOSE 80
+EXPOSE 80 8083
