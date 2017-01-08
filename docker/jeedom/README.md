@@ -23,11 +23,6 @@ docker run -d -p 3306:3306 \
 --name rpi-mysql tobi312/rpi-mysql
 ```
 
-If needed, install required database from your local :
-```bash
-mysql -uroot -ptoor -h 127.0.0.1 jeedom < jeedom-mysql/install.sql
-```
-
 ###Jeedom configuration
 
 Build Jeedom Docker image thanks to :
