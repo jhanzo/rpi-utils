@@ -37,8 +37,18 @@ docker build —tag=jeedom .
 
 And then run a Jeedom container link with previous mysql container :
 ```bash
-docker run -dt -p 80:80 -p 8083:8083 --link rpi-mysql:mysql --name rpi-jeedom rpi-jeedom
+docker run -dt -p 80:80 -p 8083:8083 \
+--link rpi-mysql:mysql \
+--name rpi-jeedom rpi-jeedom
 ```
+
+If you use a [RaZberry](http://razberry.z-wave.me/) model or anything else plugged into you rpi add following tag to your docker run :
+```bash
+...
+--device=/dev/ttyAMA0 \
+...
+```
+
 ###Access Jeedom
 
 Finally Go to : 
