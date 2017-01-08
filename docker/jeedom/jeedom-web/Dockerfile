@@ -92,4 +92,4 @@ RUN chmod +x /start_supervisord
 
 CMD ["/start_supervisord"]
 
-EXPOSE 80 8083
+EXPOSE 80
