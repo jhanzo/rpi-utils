@@ -10,9 +10,12 @@ MAINTAINER subena.io@gmail.com
 RUN apt-get update
 RUN apt-get -y dist-upgrade
 
-RUN apt-get install nodered npm mosquitto mosquitto-clients
+RUN apt-get install build-essential npm mosquitto mosquitto-clients curl
 
-RUN cd ~/.node-red && \
-  npm install node-red-node-mysql
+RUN sudo npm install n -g && sudo n latest && \ 
+  sudo npm install -g --unsafe-perm node-red && \
+  npm install -g node-red-node-mysql && \
+  npm install -g node-red-contrib-slack && \
+  npm install -g node-red-contrib-slackbot
 
 EXPOSE 1880 1883
