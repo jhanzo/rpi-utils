@@ -16,6 +16,7 @@ RUN sudo npm install n -g && sudo n latest && \
   sudo npm install -g --unsafe-perm node-red && \
   npm install -g node-red-node-mysql && \
   npm install -g node-red-contrib-slack && \
-  npm install -g node-red-contrib-slackbot
+  npm install -g node-red-contrib-slackbot && \
+  npm install -g node-red-contrib-cron
 
 EXPOSE 1880 1883
