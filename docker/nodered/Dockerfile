@@ -17,6 +17,8 @@ RUN sudo npm install n -g && sudo n latest && \
   npm install -g node-red-node-mysql && \
   npm install -g node-red-contrib-slack && \
   npm install -g node-red-contrib-slackbot && \
-  npm install -g node-red-contrib-cron
+  npm install -g node-red-contrib-cron && \
+  npm install -g node-red-contrib-auth && \
+  npm install -g node-red-contrib-store-reviews
 
 EXPOSE 1880 1883
