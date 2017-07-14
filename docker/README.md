@@ -26,3 +26,6 @@ Inspired by official doc :
 
 **Plex Media Server** - *For running plex media server on raspberry letting shared picture, movies or anything else*
 > [besn0847/arm-plex](https://github.com/besn0847/arm-plex)
+
+**Portainer.io** - *For managing docker containers in a UI*
+> sudo docker run -d --name="Portainer" --restart always -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
