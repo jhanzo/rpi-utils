@@ -23,6 +23,13 @@ docker run -d -p 3306:3306 \
 --name rpi-mysql tobi312/rpi-mysql
 ```
 
+### Razberry configuration (optional)
+
+Just run :
+```bash
+wget -q -O - razberry.z-wave.me/install | sudo bash
+```
+
 ### Jeedom configuration
 
 Build Jeedom Docker image thanks to :
