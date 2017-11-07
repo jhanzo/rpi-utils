@@ -72,7 +72,7 @@ RUN sed -i 's/,127.0.0.1/,127.0.0.1,172.17.*.*/' /var/www/html/core/config/defau
 RUN mkdir /etc/nginx/ssl
 RUN openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt -subj "/C=FR/ST=France/L=Nice/O=Home/OU=Home/CN=jeedom.com"
 
-RUN wget -q -O - http://razberry.zwave.me/install | sudo bash
+#RUN wget -q -O - http://razberry.zwave.me/install | sudo bash
 
 ##############
 # Supervisor #
