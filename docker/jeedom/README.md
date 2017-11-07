@@ -1,10 +1,10 @@
-#Jeedom (for rulling them all)
+# Jeedom (for rulling them all)
 
 This folder is about Jeedom configuration.
 
 Technically, it is only a webserver (nginx) configuration from [jeedom/core](https://github.com/jeedom/core) sources.
 
-###Database configuration
+### Database configuration
 
 According to general Docker rules, this image doesn't include any MySQL server instance for having only atomic containers. Of course, mysql-client is included.
 
@@ -23,7 +23,14 @@ docker run -d -p 3306:3306 \
 --name rpi-mysql tobi312/rpi-mysql
 ```
 
-###Jeedom configuration
+### Razberry configuration (optional)
+
+Just run :
+```bash
+wget -q -O - razberry.z-wave.me/install | sudo bash
+```
+
+### Jeedom configuration
 
 Build Jeedom Docker image thanks to :
 ```bash
@@ -44,7 +51,7 @@ If you use a [RaZberry](http://razberry.z-wave.me/) model or anything else plugg
 ...
 ```
 
-###Access Jeedom
+### Access Jeedom
 
 Finally Go to : 
 
