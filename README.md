@@ -29,3 +29,10 @@ More info on [official blog](https://www.raspberrypi.org/blog/docker-comes-to-ra
 For extrem security access, install OpenVPN. 
 
 A good way to achieve this is [PiVPN](https://github.com/pivpn/pivpn) (very easy install).
+
+If you encounter any issue with internet navigation while connected to VPN, you could try to run : 
+```bash
+iptables --policy INPUT ACCEPT
+iptables --policy OUTPUT ACCEPT
+iptables --policy FORWARD ACCEPT
+
